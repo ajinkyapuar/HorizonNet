@@ -1,3 +1,4 @@
+import os
 import json
 import open3d
 import numpy as np
@@ -104,3 +105,11 @@ if __name__ == '__main__':
     if not args.ignore_wireframe:
         tobe_visualize.append(wf_line_set)
     open3d.visualization.draw_geometries(tobe_visualize)
+
+    # Save point cloud file
+    pcdext = '.ply'
+    filename = args.img.split('\\')[-1].split('.')[0].split('_')[0]
+    savepath = args.layout.split('\\')[:-1]
+    # print(os.path.join(*savepath, filename))
+    filepath = os.path.join(*savepath, filename)
+    open3d.io.write_point_cloud(filepath + pcdext, pcd)
